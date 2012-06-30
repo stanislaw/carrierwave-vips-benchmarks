@@ -10,5 +10,4 @@ gem 'rmagick'
 gem 'image_science'
 gem 'ruby-vips'
 
-gem 'require_all'
 gem 'cutter'

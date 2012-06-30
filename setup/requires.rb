@@ -1,4 +1,3 @@
-require 'require_all'
 require 'cutter'
 
 require 'active_record'
