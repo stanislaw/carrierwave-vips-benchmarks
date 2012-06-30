@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-class MagickUploader < CarrierWave::Uploader::Base
+class ImageScienceUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  include CarrierWave::RMagick
+  # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
-
+  include CarrierWave::ImageScience
   # include CarrierWave::Uploader::Processing
   # include CarrierWave::Vips
 
