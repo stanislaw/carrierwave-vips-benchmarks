@@ -1,12 +1,13 @@
 # encoding: utf-8
 
-class VipsUploader < CarrierWave::Uploader::Base
+class MagickUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
+  include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
-  include CarrierWave::Uploader::Processing
-  include CarrierWave::Vips
+
+  # include CarrierWave::Uploader::Processing
+  # include CarrierWave::Vips
 
   version :thumbnail do
     process :resize_to_limit => [500, 100]
@@ -23,6 +24,9 @@ class VipsUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
+    # puts model.class.to_s.underscore
+    # puts mounted_as
+    # puts model.id
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
