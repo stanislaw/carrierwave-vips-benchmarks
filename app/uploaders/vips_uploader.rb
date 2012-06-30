@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'carrierwave/processing/vips'
+
 class VipsUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "removing previous files uploaded by carrierwave..."
+rm -rf
+
+./versions.rb
+
+./runner-vips.rb
+echo
+./runner-rmagick.rb
+echo
+./runner-mini-magick.rb
+echo
+./runner-image-science.rb
+
+echo -n "Vips peak memuse in kb: "
+/usr/bin/time -f %M ./runner-vips.rb > /dev/null
+echo -n "RMagick peak memuse in kb: "
+/usr/bin/time -f %M ./runner-rmagick.rb > /dev/null
+echo -n "MiniMagick peak memuse in kb: "
+/usr/bin/time -f %M ./runner-mini-magick.rb > /dev/null
+echo -n "ImageScience peak memuse in kb: "
+/usr/bin/time -f %M ./runner-image-science.rb > /dev/null
+
