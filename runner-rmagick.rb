@@ -5,13 +5,6 @@ $:.unshift File.expand_path 'lib', File.dirname(__FILE__)
 
 require 'setup/requires'
 
-image = File.open('samples/peacock.jpg')
-
-puts
-puts image.inspect
-
-n = 200
-
 stamper :rmagick do
   NUMBER.times do
     u = User.new :name => 'first'
