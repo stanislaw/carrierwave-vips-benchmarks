@@ -2,8 +2,8 @@ require 'bundler'
 require 'rake'
 
 desc "Begin benchmarks"
-task :performance do
-  system %[bundle exec ruby performance.rb]
+task :runner do
+  system %[bundle exec ./runner]
 end
 
-task :default => :performance
+task :default => :runner
