@@ -206,4 +206,5 @@ $ ./runner-image-science
 
 Feedback is appreciated!
 
-## Copyright (c) 2012 Stanislaw Pankevich
+## Copyright
+Copyright (c) 2012 Stanislaw Pankevich
