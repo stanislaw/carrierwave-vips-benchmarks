@@ -1,9 +1,23 @@
 # carrierwave-vips-benchmarks
 
-This repo demonstrates performance of ruby-vips, Ruby bindings for libvips library, working behind ```CarrierWave``` file uploader plugin for Ruby on Rails framework. 
-There is similar repository: [vips-benchmarks](https://github.com/stanislaw/vips-benchmarks), which focuses on advantage ruby-vips has over other image processing libraries. 
-This repo is intended to show, how this advantages spread on Rails territory. 
-From the ruby-vips side this benchmark relies on implementation of [CarrierWave::Vips](https://github.com/eltiare/carrierwave/commit/08bc69f379b25d413a6243e6545defe2a88b45f0) module written by [Jeremy Nicoll](https://github.com/eltiare/), other participants are modules which are currently used in [carrierwave](https://github.com/jnicklas/carrierwave) master branch. Actually, ```CarrierWave::ImageScience``` module code had been [cut out](https://github.com/jnicklas/carrierwave/commit/8b85d793d62cbce1115185b0dde51ce4e3cac6f4) of carrierwave's master a year ago because of lack of maintaining, but it is in here among the others. 
+This repo demonstrates the performance of ruby-vips, the Ruby binding for
+the libvips library, when used with the ```CarrierWave``` file uploader
+plugin for Ruby on Rails framework.  There is similar repository,
+[vips-benchmarks](https://github.com/stanislaw/vips-benchmarks), which
+focuses on the advantages ruby-vips has over other image processing libraries.
+This repo is intended to show, how these advantages spread to Rails
+territory.  
+
+This benchmark uses the
+[CarrierWave::Vips](https://github.com/eltiare/carrierwave/commit/08bc69f379b25d413a6243e6545defe2a88b45f0)
+module written by [Jeremy Nicoll](https://github.com/eltiare/),
+other participants are modules which are currently used in
+[carrierwave](https://github.com/jnicklas/carrierwave) master
+branch. Actually, ```CarrierWave::ImageScience``` module code had been [cut
+out](https://github.com/jnicklas/carrierwave/commit/8b85d793d62cbce1115185b0dde51ce4e3cac6f4)
+of carrierwave's master a year ago because of lack of maintenance, but it
+is in here among the others.
+
 OK, let's see.
 
 ## Status (June 30, 2012)
@@ -71,7 +85,8 @@ Timing results are made using [cutter](https://github.com/stanislaw/cutter) gem.
 
 ### Procedure
 
-The similar procedure is run using each uploader. Each uploader is being run in its own file, following output is concatenated for readability:
+A similar procedure is run using each uploader. Each uploader is being
+run in its own file. The following output is concatenated for readability:
 
 ```ruby
 # setup/settings.rb
@@ -135,7 +150,8 @@ end
 
 ### Uploaders
 
-All uploaders beside uploading original file have 3 versions to generate. Let's take one of them for example:
+All uploaders, beside uploading original file, have 3 versions to
+generate. Let's take one of them for example:
 
 ```ruby
 # encoding: utf-8
