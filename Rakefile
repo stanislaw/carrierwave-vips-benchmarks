@@ -5,3 +5,5 @@ desc "Begin benchmarks"
 task :performance do
   system %[bundle exec ruby performance.rb]
 end
+
+task :default => :performance

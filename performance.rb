@@ -1,3 +1,7 @@
+puts "Removing images left from previous runs\n"
+
+system %[rm -rf uploads/*]
+
 $:.unshift File.dirname __FILE__
 $:.unshift File.expand_path 'lib', File.dirname(__FILE__)
 
@@ -9,12 +13,10 @@ require 'active_record'
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 
-
 require_all File.expand_path('../lib', __FILE__)
 require_all File.expand_path('../app', __FILE__)
 
-# Print out what version we're running
-puts "Active Record #{ActiveRecord::VERSION::STRING}\n"
+puts "\nActive Record #{ActiveRecord::VERSION::STRING}\n"
 
 # Connect to an in-memory sqlite3 database (more on this in a moment)
 ActiveRecord::Base.establish_connection(
@@ -35,9 +37,10 @@ end
 
 image = File.open('samples/peacock.jpg')
 
+puts
 puts image.inspect
 
-n = 100
+n = 50
 stamper :rmagick do
   n.times do
     u = User.new :name => 'first'
