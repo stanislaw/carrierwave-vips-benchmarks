@@ -13,4 +13,3 @@ $:.unshift File.dirname __FILE__
 require 'database'
 require 'output'
 require 'settings'
-
