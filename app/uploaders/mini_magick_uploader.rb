@@ -9,10 +9,18 @@ class MiniMagickUploader < CarrierWave::Uploader::Base
   # include CarrierWave::Uploader::Processing
   # include CarrierWave::Vips
 
-  version :thumbnail do
-    process :resize_to_limit => [500, 100]
+  version :rtlimit do
+    process :resize_to_limit => [100, 100]
   end
 
+  version :rtfit do
+    process :resize_to_fit => [100, 100]
+  end
+  
+  version :rtfill do
+    process :resize_to_fill => [100, 100]
+  end
+  
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
   # include Sprockets::Helpers::RailsHelper
   # include Sprockets::Helpers::IsolatedHelper
