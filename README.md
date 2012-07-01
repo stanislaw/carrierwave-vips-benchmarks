@@ -59,24 +59,24 @@ Ruby-vips 0.2.0 built against vips-7.26.7-Tue May 22 02:54:27 EEST 2012
 
 ruby-vips
 ---------
-   4371ms
+   3921ms
 
 RMagick
 -------
- 7382ms
+ 7470ms
 
 mini_magick
 -----------
-     16759ms
+     17010ms
 
 Image Science
 -------------
-       9166ms
+       8653ms
 
-Vips peak memuse in kb: 176336
-RMagick peak memuse in kb: 144176
-MiniMagick peak memuse in kb: 120912
-ImageScience peak memuse in kb: 136800
+Vips peak memuse in kb: 144320
+RMagick peak memuse in kb: 149488
+MiniMagick peak memuse in kb: 127712
+ImageScience peak memuse in kb: 142304
 ```
 
 Timing results are made using [cutter](https://github.com/stanislaw/cutter) gem.
