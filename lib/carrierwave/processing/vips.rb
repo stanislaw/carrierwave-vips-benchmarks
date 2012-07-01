@@ -194,6 +194,7 @@ module CarrierWave
           ratio = get_ratio image, width, height, min_or_max
         end
         image = image.affinei_resize :bicubic, ratio unless ratio == 1
+        image = image.tile_cache(image.x_size, 1, 30)
         image = image.conv SHARPEN_MASK
       end
       
