@@ -8,10 +8,10 @@ module CarrierWave
     SHARPEN_MASK = begin
       conv_mask = [
         [ -1, -1, -1 ],
-        [ -1, 16, -1 ],
+        [ -1, 32, -1 ],
         [ -1, -1, -1 ]
       ]
-      VIPS::Mask.new conv_mask, 8
+      VIPS::Mask.new conv_mask, 24
     end
     
     def self.included(base)
@@ -84,7 +84,7 @@ module CarrierWave
     #
     def resize_to_fit(new_width, new_height)
       manipulate! do |image|
-        resize_image(image,new_width,new_height)
+        resize_path(current_path,new_width,new_height)
       end
     end
 
@@ -102,7 +102,7 @@ module CarrierWave
     def resize_to_fill(new_width, new_height)
       manipulate! do |image|
         
-        image = resize_image image, new_width, new_height, :max
+        image = resize_path current_path, new_width, new_height, :max
         
         if image.x_size > new_width
           top = 0
@@ -130,7 +130,7 @@ module CarrierWave
     #
     def resize_to_limit(new_width, new_height)
       manipulate! do |image|
-        image = resize_image(image,new_width,new_height) if new_width < image.x_size || new_height < image.y_size
+        image = resize_path(current_path,new_width,new_height) if new_width < image.x_size || new_height < image.y_size
         image
       end
     end
@@ -163,7 +163,7 @@ module CarrierWave
     rescue => e
       raise CarrierWave::ProcessingError.new("Failed to manipulate file, maybe it is not an image? Original Error: #{e}")
     end
-    
+
     def process!(*)
       ret = super
       if @_vimage
@@ -185,7 +185,7 @@ module CarrierWave
     def resize_image(image, width, height, min_or_max = :min)
       
       ratio = get_ratio image, width, height, min_or_max
-      
+
       if ratio > 1
         image = image.affinei_resize :nearest, ratio
       elsif ratio < 1
@@ -193,20 +193,51 @@ module CarrierWave
           image = image.shrink((1/ratio).floor)
           ratio = get_ratio image, width, height, min_or_max
         end
-        image = image.affinei_resize :bilinear, ratio unless ratio == 1
+        image = image.affinei_resize :bicubic, ratio unless ratio == 1
         image = image.conv SHARPEN_MASK
       end
       
       image
     
     end
-    
+
+    def jpeg?(path)
+      path =~ /.*jpg$/i or path =~ /.*jpeg$/i 
+    end
+
+    def png?(path)
+      path =~ /.*png$/i 
+    end
+
+    def resize_path(path, width, height, min_or_max = :min)
+
+      image = VIPS::Image.new path 
+
+      ratio = get_ratio image, width, height, min_or_max
+
+      if jpeg? path 
+        if ratio <= 1.0 / 8.0
+          image = VIPS::Image.jpeg path, 
+            :shrink_factor => 8, :sequential => true
+        elsif ratio <= 1.0 / 4.0
+          image = VIPS::Image.jpeg path, 
+            :shrink_factor => 4, :sequential => true
+        elsif ratio <= 1/0 / 2.0
+          image = VIPS::Image.jpeg path, 
+            :shrink_factor => 2, :sequential => true
+        end
+      elsif png? path
+        image = VIPS::Image.png path, :sequential => true
+      end
+
+      resize_image image, width, height, min_or_max
+    end
+
     def get_ratio(image, width,height, min_or_max = :min)
       width_ratio = width.to_f / image.x_size
       height_ratio = height.to_f / image.y_size
       [width_ratio, height_ratio].send(min_or_max)
     end
-    
 
   end # Vips
 end # CarrierWave
