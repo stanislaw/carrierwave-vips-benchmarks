@@ -3,8 +3,6 @@
 echo "removing previous files uploaded by carrierwave..."
 rm -rf uploads/*
 
-vips im_replicate samples/peacock.jpg samples/peacock.png 5 5
-
 setup/versions.rb
 
 ./runner-vips.rb
