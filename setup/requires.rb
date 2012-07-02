@@ -13,5 +13,5 @@ require 'database'
 
 require 'procedure'
 
-system 'vips im_replicate samples/peacock.jpg samples/peacock.png 5 5'
+system 'vips im_replicate samples/peacock.jpg samples/peacock.png 5 5' unless File.exists?('samples/peacock.png')
 

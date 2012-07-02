@@ -5,7 +5,7 @@ def image src
 end
 
 module Procedure
-  NUMBER = 1
+  NUMBER = 10
 
   class << self
     def run processor, img

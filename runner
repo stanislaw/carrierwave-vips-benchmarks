@@ -1,9 +1,11 @@
 #!/bin/bash
 
 echo "removing previous files uploaded by carrierwave..."
-rm -rf
+rm -rf uploads/*
 
-./versions.rb
+vips im_replicate samples/peacock.jpg samples/peacock.png 5 5
+
+setup/versions.rb
 
 ./runner-vips.rb
 ./runner-rmagick.rb
@@ -11,6 +13,7 @@ rm -rf
 ./runner-image-science.rb
 
 echo
+
 echo -n "Vips peak memuse in kb: "
 /usr/bin/time -f %M ./runner-vips.rb > /dev/null
 echo -n "RMagick peak memuse in kb: "

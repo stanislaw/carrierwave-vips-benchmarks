@@ -48,49 +48,33 @@ Built for ruby 1.9.3
 Web page: http://rmagick.rubyforge.org
 Email: rmagick@rubyforge.org
 
+MiniMagick 3.4
+
 Image Science 1.2.3
 
 Ruby-vips 0.2.0 built against vips-7.26.7-Tue May 22 02:54:27 EEST 2012
 
--- create_table(:users, {:force=>true})
-   -> 0.0336s
+ruby-vips, jpeg image: 357ms
+rmagick, jpeg image: 695ms
+mini_magick, jpeg image: 1702ms
+image_science, jpeg image: 824ms
 
-#<File:samples/peacock.jpg>
-
-ruby-vips
----------
-   3921ms
-
-RMagick
--------
- 7470ms
-
-mini_magick
------------
-     17010ms
-
-Image Science
--------------
-       8653ms
-
-Vips peak memuse in kb: 144320
-RMagick peak memuse in kb: 149488
-MiniMagick peak memuse in kb: 127712
-ImageScience peak memuse in kb: 142304
+Vips peak memuse in kb: 141328
+RMagick peak memuse in kb: 143792
+MiniMagick peak memuse in kb: 122224
+ImageScience peak memuse in kb: 137552
 ```
-
-Timing results are made using [cutter](https://github.com/stanislaw/cutter) gem.
 
 Memory use is measured with `/usr/bin/time -f %M`, in other words, it's the
 peak RSS of the starting process. MiniMagick does all processing in a forked
 `mogrify` command, so its direct memory use for image processing is zero.
 
-If we take MiniMagick as zero, vips is using about 16mb of ram, rmagick about
-21mb and ImageScience about 14mb, so all essentially equal. We are assuming
+If we take MiniMagick as zero, vips is using about 19mb of ram, rmagick about
+21mb and ImageScience about 15mb, so all essentially equal. We are assuming
 that Ruby's GC is running about equally in these four cases.
 
 The default test is for many iterations of a small JPEG image. If we try a
-single iteration of a large PNG image instead we see different behaviour:
+single iteration of a large PNG image instead we see different behaviour (N=100):
 
 ```text
 $ vips replicate peacock.jpg peacock.png 15 15
@@ -115,50 +99,19 @@ Image Science 1.2.3
 
 Ruby-vips 0.2.0 built against vips-7.29.0-Sun Jul  1 11:08:59 BST 2012
 
--- create_table(:users, {:force=>true})
-   -> 0.0075s
-
-#<File:samples/peacock.png>
-
-
 ruby-vips
----------
 ---------
    6918ms
 
-
--- create_table(:users, {:force=>true})
-   -> 0.0076s
-
-#<File:samples/peacock.png>
-
-
 RMagick
--------
 -------
 37002ms
 
-
--- create_table(:users, {:force=>true})
-   -> 0.0083s
-
-#<File:samples/peacock.png>
-
-
 mini_magick
------------
 -----------
     37158ms
 
-
--- create_table(:users, {:force=>true})
-   -> 0.0076s
-
-#<File:samples/peacock.png>
-
-
 Image Science
--------------
 -------------
       20190ms
 
@@ -182,43 +135,40 @@ RMagick's system for destroying intermediate images quickly).
 ### Procedure
 
 A similar procedure is run using each uploader. Each uploader is being
-run in its own file. The following output is concatenated for readability:
+run in its own file.
 
 ```ruby
-# setup/settings.rb
+# setup/procedure.rb
 
-NUMBER = 100
+module Procedure
+  NUMBER = 10
 
-def image
-  File.open('samples/peacock.jpg')
-end
+  class << self
+    def run processor, img
+      result = nil
 
-# ./runner-rmagick.rb
-NUMBER.times do
-  u = User.new :name => 'Stanislaw'
-  u.rmagick_avatar = image
-  u.save!
-end
+      capture_stdout do
+        result = Benchmark.bmbm do |b|
+          (1..5).each do |number|
+            b.report number do
+              NUMBER.times do
+                u = User.new :name => 'first'
+                u.send :"#{processor}_avatar=", img
+                u.save!
+              end
+            end
+          end
+        end
+      end
 
-# ./runner-mini-magick.rb
-NUMBER.times do
-  u = User.new :name => 'Stanislaw'
-  u.mini_magick_avatar = image
-  u.save!
-end
+      output result
+    end
 
-# ./runner-image-science.rb
-NUMBER.times do
-  u = User.new :name => 'Stanislaw'
-  u.image_science_avatar = image
-  u.save!
-end
-
-# ./runner-vips.rb
-NUMBER.times do
-  u = User.new :name => 'Stanislaw'
-  u.vips_avatar = image
-  u.save!
+    def output result
+      result = (result.map(&:to_a).map{|el| el[5]}.min * 1000).to_i
+      puts "#{result}ms"
+    end
+  end
 end
 ```
 
@@ -246,7 +196,7 @@ end
 
 ### Uploaders
 
-All uploaders, beside uploading original file, have 3 versions to
+Besides uploading original file, each uploader has 3 versions to
 generate. Let's take one of them for example:
 
 ```ruby
