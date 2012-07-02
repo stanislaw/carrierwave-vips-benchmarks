@@ -81,6 +81,102 @@ ImageScience peak memuse in kb: 142304
 
 Timing results are made using [cutter](https://github.com/stanislaw/cutter) gem.
 
+Memory use is measured with `/usr/bin/time -f %M`, in other words, it's the
+peak RSS of the starting process. MiniMagick does all processing in a forked
+`mogrify` command, so its direct memory use for image processing is zero.
+
+If we take MiniMagick as zero, vips is using about 16mb of ram, rmagick about
+21mb and ImageScience about 14mb, so all essentially equal. We are assuming
+that Ruby's GC is running about equally in these four cases.
+
+The default test is for many iterations of a small JPEG image. If we try a
+single iteration of a large PNG image instead we see different behaviour:
+
+```text
+$ vips replicate peacock.jpg peacock.png 15 15
+```
+
+Repeats the test JPEG image 15 times in each axis to make a 9,000 x 7,000 RGB 
+PNG image.
+
+```text
+removing previous files uploaded by carrierwave...
+Linux kiwi 3.2.0-26-generic #41-Ubuntu SMP Thu Jun 14 17:49:24 UTC
+2012 x86_64 x86_64 x86_64 GNU/Linux
+
+This is RMagick 2.13.1 ($Date: 2009/12/20 02:33:33 $) Copyright (C)
+2009 by Timothy P. Hunter
+Built with ImageMagick 6.6.9-7 2012-04-30 Q16 http://www.imagemagick.org
+Built for ruby 1.8.7
+Web page: http://rmagick.rubyforge.org
+Email: rmagick@rubyforge.org
+
+Image Science 1.2.3
+
+Ruby-vips 0.2.0 built against vips-7.29.0-Sun Jul  1 11:08:59 BST 2012
+
+-- create_table(:users, {:force=>true})
+   -> 0.0075s
+
+#<File:samples/peacock.png>
+
+
+ruby-vips
+---------
+---------
+   6918ms
+
+
+-- create_table(:users, {:force=>true})
+   -> 0.0076s
+
+#<File:samples/peacock.png>
+
+
+RMagick
+-------
+-------
+37002ms
+
+
+-- create_table(:users, {:force=>true})
+   -> 0.0083s
+
+#<File:samples/peacock.png>
+
+
+mini_magick
+-----------
+-----------
+    37158ms
+
+
+-- create_table(:users, {:force=>true})
+   -> 0.0076s
+
+#<File:samples/peacock.png>
+
+
+Image Science
+-------------
+-------------
+      20190ms
+
+Vips peak memuse in kb: 385440
+RMagick peak memuse in kb: 757728
+MiniMagick peak memuse in kb: 364272
+ImageScience peak memuse in kb: 1665488
+```
+
+Now taking MiniMagick as zero again gives us 21mb for vips, 394mb for rmagick
+and 1.3gb for ImageScience.
+
+Vips memory use scales with image width (it has to keep a few hundred scan
+lines of the image in memory at once as it streams it through the system),
+RMagick scales with image size (it loads the entire image into memory) and 
+ImageScience scales by size and complexity of processing (it seems to lack
+RMagick's system for destroying intermediate images quickly). 
+
 ## Code
 
 ### Procedure
