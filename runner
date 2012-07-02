@@ -6,13 +6,11 @@ rm -rf
 ./versions.rb
 
 ./runner-vips.rb
-echo
 ./runner-rmagick.rb
-echo
 ./runner-mini-magick.rb
-echo
 ./runner-image-science.rb
 
+echo
 echo -n "Vips peak memuse in kb: "
 /usr/bin/time -f %M ./runner-vips.rb > /dev/null
 echo -n "RMagick peak memuse in kb: "

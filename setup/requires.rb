@@ -1,4 +1,5 @@
-require 'cutter'
+$:.unshift File.expand_path '../lib', File.dirname(__FILE__)
+$:.unshift File.dirname __FILE__
 
 require 'active_record'
 
@@ -7,8 +8,10 @@ require 'carrierwave/orm/activerecord'
 
 require 'app/models/user'
 
-$:.unshift File.dirname __FILE__
-
+require 'kernel'
 require 'database'
-require 'output'
-require 'settings'
+
+require 'procedure'
+
+system 'vips im_replicate samples/peacock.jpg samples/peacock.png 5 5'
+

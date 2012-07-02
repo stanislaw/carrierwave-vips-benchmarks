@@ -16,8 +16,12 @@ puts
 puts Magick::Long_version
 puts
 
+puts "MiniMagick 3.4"
+puts
+
 puts "Image Science #{ImageScience::VERSION}"
 puts
 
 puts "Ruby-vips #{VIPS::VERSION} built against #{LIBVIPS_VERSION}"
 puts
+

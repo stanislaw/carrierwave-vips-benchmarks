@@ -36,9 +36,6 @@ GEM
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    colorize (0.5.8)
-    cutter (0.8.7)
-      colorize (>= 0.5)
     erubis (2.7.0)
     hike (1.2.1)
     i18n (0.6.0)
@@ -100,7 +97,6 @@ PLATFORMS
 
 DEPENDENCIES
   carrierwave
-  cutter
   image_science
   mini_magick
   rails (>= 3.1.0)
