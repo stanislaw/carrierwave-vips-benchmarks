@@ -5,7 +5,7 @@ def image src
 end
 
 module Procedure
-  NUMBER = 10
+  NUMBER = 1
 
   class << self
     def run processor, img
@@ -14,7 +14,7 @@ module Procedure
       capture_stdout do
         result = Benchmark.bmbm do |b|
           (1..5).each do |number|
-            b.report number do
+            b.report number.to_s do
               NUMBER.times do
                 u = User.new :name => 'first'
                 u.send :"#{processor}_avatar=", img

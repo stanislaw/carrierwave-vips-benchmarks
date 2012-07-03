@@ -8,8 +8,6 @@ require 'vips'
 
 include Magick
 
-LIBVIPS_VERSION = %x[vips --version]
-
 system %[uname -a]
 
 puts
@@ -22,6 +20,6 @@ puts
 puts "Image Science #{ImageScience::VERSION}"
 puts
 
-puts "Ruby-vips #{VIPS::VERSION} built against #{LIBVIPS_VERSION}"
+puts "Ruby-vips #{VIPS::VERSION} built against libvips #{VIPS::LIB_VERSION}"
 puts
 

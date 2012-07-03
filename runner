@@ -3,7 +3,7 @@
 echo "removing previous files uploaded by carrierwave..."
 rm -rf uploads/*
 
-setup/versions.rb
+./setup/versions.rb
 
 ./runner-vips.rb
 ./runner-rmagick.rb
