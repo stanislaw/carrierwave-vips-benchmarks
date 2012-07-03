@@ -15,7 +15,7 @@ echo "Timing (fastest wall-clock time of $best_of runs):"
 ./runner-mini-magick.rb $best_of
 ./runner-image-science.rb $best_of
 
-echo "Peak memuse (max of sum of mmap and brk, including sub-processes):"
+echo "Peak memuse (max of sum of mmap and brk, excluding sub-processes):"
 
 echo "vips ..."
 ./setup/peakmem.pl ./runner-vips.rb 1
