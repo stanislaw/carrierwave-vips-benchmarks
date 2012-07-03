@@ -78,7 +78,7 @@ post](http://tstarling.com/blog/2010/06/measuring-memory-usage-with-strace).
 
 We've timed for a 1024 x 768 JPEG image and a 5120 x 3840 PNG image.
 
-JPEG images can be shrink very quickly by subsampling during load, so we
+JPEG images can be shrunk very quickly by subsampling during load, so we
 wanted to include a PNG as well to stress the memory systems on these
 libraries a little more.
 
