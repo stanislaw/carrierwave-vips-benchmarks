@@ -1,23 +1,29 @@
 #!/bin/bash
 
+# number of times to try each system
+best_of=3
+
 echo "removing previous files uploaded by carrierwave..."
 rm -rf uploads/*
 
 ./setup/versions.rb
 
-./runner-vips.rb
-./runner-rmagick.rb
-./runner-mini-magick.rb
-./runner-image-science.rb
+echo "Timing (fastest wall-clock time of $best_of runs):"
 
-echo
+./runner-vips.rb $best_of
+./runner-rmagick.rb $best_of
+./runner-mini-magick.rb $best_of
+./runner-image-science.rb $best_of
 
-echo -n "Vips peak memuse in kb: "
-/usr/bin/time -f %M ./runner-vips.rb > /dev/null
-echo -n "RMagick peak memuse in kb: "
-/usr/bin/time -f %M ./runner-rmagick.rb > /dev/null
-echo -n "MiniMagick peak memuse in kb: "
-/usr/bin/time -f %M ./runner-mini-magick.rb > /dev/null
-echo -n "ImageScience peak memuse in kb: "
-/usr/bin/time -f %M ./runner-image-science.rb > /dev/null
+echo "Peak memuse (max of sum of mmap and brk, including sub-processes):"
+
+echo "vips ..."
+./setup/peakmem.pl ./runner-vips.rb 1
+echo "rmagick ..."
+./setup/peakmem.pl ./runner-rmagick.rb 1
+echo "mini-magick ..."
+./setup/peakmem.pl ./runner-mini-magick.rb 1
+echo "image-science ..."
+./setup/peakmem.pl ./runner-image-science.rb 1
+
 

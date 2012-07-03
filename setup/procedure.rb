@@ -8,12 +8,12 @@ module Procedure
   NUMBER = 1
 
   class << self
-    def run processor, img
+    def run processor, img, best_of
       result = nil
 
       capture_stdout do
         result = Benchmark.bmbm do |b|
-          (1..5).each do |number|
+          (1 .. best_of).each do |number|
             b.report number.to_s do
               NUMBER.times do
                 u = User.new :name => 'first'
