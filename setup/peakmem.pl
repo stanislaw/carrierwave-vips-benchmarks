@@ -10,7 +10,8 @@ my $cmd;
 if ( `uname -m` eq 'x86_64' ) {
 	$cmd = 'strace -e trace=mmap,munmap,brk ';
 } else {
-	$cmd = 'strace -e trace=mmap,mmap2,munmap,brk ';
+  # $cmd = 'strace -e trace=mmap,mmap2,munmap,brk ';
+  $cmd = 'strace -e trace=mmap2,munmap,brk ';
 }
 for my $arg (@ARGV) {
 	$arg =~ s/'/'\\''/g;
