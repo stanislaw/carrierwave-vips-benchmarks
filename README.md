@@ -10,8 +10,8 @@ focuses on the advantages ruby-vips has over other image processing libraries.
 This repo is intended to show, how these advantages spread to Rails territory.
 
 This benchmark uses the
-[CarrierWave::Vips](https://github.com/eltiare/carrierwave/commit/08bc69f379b25d413a6243e6545defe2a88b45f0)
-module written by [Jeremy Nicoll](https://github.com/eltiare/),
+[carrierwave-vips](https://github.com/eltiare/carrierwave-vips)
+gem written by [Jeremy Nicoll](https://github.com/eltiare),
 other participants are modules which are currently used in
 [carrierwave](https://github.com/jnicklas/carrierwave) master
 branch. Actually, ```CarrierWave::ImageScience``` module code had been [cut

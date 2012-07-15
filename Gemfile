@@ -8,4 +8,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'rmagick'
 gem 'image_science'
-gem 'ruby-vips'
+
+gem 'ruby-vips', :git => 'https://github.com/jcupitt/ruby-vips'
+gem 'carrierwave-vips'
