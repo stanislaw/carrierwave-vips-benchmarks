@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/jcupitt/carrierwave-vips
+  revision: 2e05ed7185ba44f8bdcadf220ef6de611f1b03f0
+  specs:
+    carrierwave-vips (0.9.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -36,7 +42,6 @@ GEM
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    carrierwave-vips (0.9.1)
     erubis (2.7.0)
     hike (1.2.1)
     i18n (0.6.0)
@@ -98,7 +103,7 @@ PLATFORMS
 
 DEPENDENCIES
   carrierwave
-  carrierwave-vips
+  carrierwave-vips!
   image_science
   mini_magick
   rails (>= 3.1.0)
