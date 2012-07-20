@@ -1,8 +1,8 @@
 # carrierwave-vips-benchmarks
 
-This repo aims to demonstrate the performance of ruby-vips, the Ruby
-binding for the libvips library, when used with the ```CarrierWave``` file
-uploader plugin for Ruby on Rails framework.  
+This repo aims to demonstrate the performance of ruby-vips, the Ruby binding
+for the libvips library, when used with the ```CarrierWave``` file uploader
+plugin for Ruby on Rails framework.
 
 There is similar repository,
 [vips-benchmarks](https://github.com/stanislaw/vips-benchmarks), which
@@ -73,6 +73,50 @@ image-science ... 149 MB
 Memory use is measured by watching strace output
 for brk and mmap calls, see Tim Starling's [blog
 post](http://tstarling.com/blog/2010/06/measuring-memory-usage-with-strace).
+
+with ruby-vips 0.3.0 and libvips 7.30.0
+
+```bash
+$ bundle exec ./runner
+removing previous files uploaded by carrierwave...
+Linux kiwi 3.2.0-26-generic #41-Ubuntu SMP Thu Jun 14 17:49:24 UTC 2012 x86_64
+x86_64 x86_64 GNU/Linux
+
+This is RMagick 2.13.1 ($Date: 2009/12/20 02:33:33 $) Copyright (C) 2009 by
+Timothy P. Hunter
+Built with ImageMagick 6.6.9-7 2012-04-30 Q16 http://www.imagemagick.org
+Built for ruby 1.8.7
+Web page: http://rmagick.rubyforge.org
+Email: rmagick@rubyforge.org
+
+MiniMagick 3.4
+
+Image Science 1.2.3
+
+Ruby-vips 0.3.0 built against libvips 7.30.0-Fri Jul 20 15:26:33 BST 2012
+
+Timing (fastest wall-clock time of 3 runs):
+ruby-vips, jpeg image: 88ms
+rmagick, jpeg image: 183ms
+image_science, jpeg image: 245ms
+mini_magick, jpeg image: 332ms
+ruby-vips, png image: 2545ms
+image_science, png image: 6488ms
+rmagick, png image: 9936ms
+mini_magick, png image: 11458ms
+Peak memuse (max of sum of mmap and brk, excluding sub-processes):
+vips ...
+24 MB
+rmagick ...
+25 MB
+mini-magick ...
+34 MB
+image-science ...
+24 MB
+```
+
+png is faster (yay), jpg is slower (?? something's wrong), peak memuse seems
+broken
 
 ## Analysis
 
