@@ -7,17 +7,21 @@
 
 my $cmd;
 
-if ( `uname -m` eq 'x86_64' ) {
+$machine = `uname -m`;
+chomp($machine);
+
+if ( $machine eq 'x86_64' ) {
 	$cmd = 'strace -e trace=mmap,munmap,brk ';
 } else {
-  # $cmd = 'strace -e trace=mmap,mmap2,munmap,brk ';
-  $cmd = 'strace -e trace=mmap2,munmap,brk ';
+	$cmd = 'strace -e trace=mmap,mmap2,munmap,brk ';
 }
+
 for my $arg (@ARGV) {
 	$arg =~ s/'/'\\''/g;
 	$cmd .= " '$arg'";
 }
 $cmd .= ' 2>&1 >/dev/null';
+
 open( PIPE, "$cmd|" ) or die "Cannot execute command \"$cmd\"\n";
 
 my $currentSize = 0;
@@ -55,12 +59,13 @@ while ( <PIPE> ) {
 	} else {
 		$error .= $_;
 	}
+
 	if ( int( ( $currentSize - $maxSize ) / 1048576 ) > 0 ) {
 		$maxSize = $currentSize;
 		printf( "\r%d MB", $maxSize / 1048576 );
 	}
 }
-printf( "\n" ); 
+printf( "\r%d MB  \n", $maxSize / 1048576 ); 
 close( PIPE );
 if ( $? ) {
 	print $error;
