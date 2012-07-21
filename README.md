@@ -57,7 +57,7 @@ Ruby-vips 0.3.0 built against libvips 7.30.0-Fri Jul 20 15:26:33 BST 2012
 
 Timing (fastest wall-clock time of 3 runs):
 
-ruby-vips, jpeg image: 88ms
+ruby-vips, jpeg image: 50ms
 rmagick, jpeg image: 183ms
 image_science, jpeg image: 245ms
 mini_magick, jpeg image: 332ms
@@ -77,10 +77,6 @@ image-science ... 149 MB
 Memory use is measured by watching strace output
 for brk and mmap calls, see Tim Starling's [blog
 post](http://tstarling.com/blog/2010/06/measuring-memory-usage-with-strace).
-
-ruby-vips jpeg time should be about 60ms, this needs checking.
-
-## Analysis
 
 We've timed for a 1024 x 768 JPEG image and a 5120 x 3840 PNG image.
 

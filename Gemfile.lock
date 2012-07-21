@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/jcupitt/carrierwave-vips
-  revision: a51f4a75cc5f118fcfac75b6508965396c6a9e78
+  revision: cdf6935d19f2ad1e1940f885a8a5314d248b17de
   specs:
     carrierwave-vips (0.9.1)
 
