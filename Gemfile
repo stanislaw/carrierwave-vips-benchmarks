@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '>=3.1.0' # change as required
+gem 'activerecord', '>=3.1.0' # change as required
 gem 'sqlite3'
 
 gem 'carrierwave'
