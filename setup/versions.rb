@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 require 'rubygems'
 
@@ -6,7 +6,7 @@ require 'RMagick'
 require 'image_science'
 require 'vips'
 
-include Magick
+# include Magick
 
 system %[uname -a]
 

@@ -10,4 +10,4 @@ gem 'rmagick'
 gem 'image_science'
 
 gem 'ruby-vips'
-gem 'carrierwave-vips', :git => 'https://github.com/jcupitt/carrierwave-vips'
+gem 'carrierwave-vips'

@@ -97,6 +97,37 @@ RMagick scales with image size (it loads the entire image into memory) and
 ImageScience scales by size and complexity of processing (it seems to lack
 RMagick's system for destroying intermediate images quickly). 
 
+### Another machine (MacBook Air 13-inch, Mid 2012, Mac OS X Lion 10.7.4)
+
+```
+Darwin ip 11.4.2 Darwin Kernel Version 11.4.2: Wed May 30 20:13:51 PDT
+2012; root:xnu-1699.31.2~1/RELEASE_X86_64 x86_64
+
+This is RMagick 2.13.1 ($Date: 2009/12/20 02:33:33 $) Copyright (C) 2009
+by Timothy P. Hunter
+Built with ImageMagick 6.7.7-6 2012-08-11 Q16 http://www.imagemagick.org
+Built for ruby 1.9.3
+Web page: http://rmagick.rubyforge.org
+Email: rmagick@rubyforge.org
+
+MiniMagick 3.4
+
+Image Science 1.2.3
+
+Ruby-vips 0.3.4 built against libvips 7.30.2-Fri Sep 14 05:22:18 YEKT
+2012
+
+Timing (fastest wall-clock time of 3 runs):
+ruby-vips, jpeg image: 85ms
+ruby-vips, png image: 1473ms
+rmagick, jpeg image: 181ms
+rmagick, png image: 6025ms
+mini_magick, jpeg image: 392ms
+mini_magick, png image: 5439ms
+image_science, jpeg image: 222ms
+image_science, png image: 4602ms
+```
+
 ## Code
 
 ### Procedure
