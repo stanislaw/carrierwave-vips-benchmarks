@@ -39,12 +39,12 @@ Repo is in setup phase:
 ```bash
 $ bundle exec ./runner
 removing previous files uploaded by carrierwave...
-Linux kiwi 3.2.0-26-generic #41-Ubuntu SMP Thu Jun 14 17:49:24 UTC 2012 x86_64
+Linux kiwi 3.2.0-30-generic #48-Ubuntu SMP Fri Aug 24 16:52:48 UTC 2012 x86_64
 x86_64 x86_64 GNU/Linux
 
 This is RMagick 2.13.1 ($Date: 2009/12/20 02:33:33 $) Copyright (C) 2009 by
 Timothy P. Hunter
-Built with ImageMagick 6.6.9-7 2012-04-30 Q16 http://www.imagemagick.org
+Built with ImageMagick 6.6.9-7 2012-08-17 Q16 http://www.imagemagick.org
 Built for ruby 1.8.7
 Web page: http://rmagick.rubyforge.org
 Email: rmagick@rubyforge.org
@@ -53,25 +53,26 @@ MiniMagick 3.4
 
 Image Science 1.2.3
 
-Ruby-vips 0.3.0 built against libvips 7.30.0-Fri Jul 20 15:26:33 BST 2012
+Ruby-vips 0.3.4 built against libvips 7.30.3-Thu Sep 13 16:46:22 BST 2012
 
 Timing (fastest wall-clock time of 3 runs):
 
-ruby-vips, jpeg image: 50ms
-rmagick, jpeg image: 183ms
-image_science, jpeg image: 245ms
-mini_magick, jpeg image: 332ms
+ruby-vips, jpeg image: 		50ms
+rmagick, jpeg image: 		202ms
+image_science, jpeg image: 	245ms
+mini_magick, jpeg image: 	332ms
 
-ruby-vips, png image: 2545ms
-image_science, png image: 6488ms
-rmagick, png image: 9936ms
-mini_magick, png image: 11458ms
+ruby-vips, png image: 		2401ms
+image_science, png image: 	6469ms
+rmagick, png image: 		10750ms
+mini_magick, png image: 	11500ms
 
 Peak memuse (max of sum of mmap and brk, excluding sub-processes):
-vips ... 61 MB
-rmagick ... 199 MB
-mini-magick ... 49 MB
-image-science ... 149 MB
+
+mini-magick ...		49 MB
+ruby-vips ...  		58 MB  
+rmagick ...  		197 MB  
+image-science ... 	148 MB
 ```
 
 Memory use is measured by watching strace output
@@ -86,9 +87,9 @@ libraries a little more.
 
 MiniMagick does all processing in a forked
 `mogrify` command, so its direct memory use for image processing is zero.
-Looking at `top`, mogrify is is using about 150mb on my laptop.
+Looking at `top`, mogrify is is using about 150mb on this machine. 
 
-If we take MiniMagick as zero, vips is using about 22mb of ram, rmagick about
+If we take MiniMagick as zero, vips is using about 9mb of ram, rmagick about
 150mb and ImageScience about 100mb.
 
 Vips memory use scales with image width (it has to keep a few hundred scan
@@ -118,15 +119,20 @@ Ruby-vips 0.3.4 built against libvips 7.30.2-Fri Sep 14 05:22:18 YEKT
 2012
 
 Timing (fastest wall-clock time of 3 runs):
-ruby-vips, jpeg image: 85ms
-ruby-vips, png image: 1473ms
-rmagick, jpeg image: 181ms
-rmagick, png image: 6025ms
-mini_magick, jpeg image: 392ms
-mini_magick, png image: 5439ms
-image_science, jpeg image: 222ms
-image_science, png image: 4602ms
+
+ruby-vips, jpeg image: 		85ms
+rmagick, jpeg image: 		181ms
+image_science, jpeg image: 	222ms
+mini_magick, jpeg image: 	392ms
+
+ruby-vips, png image: 		1473ms
+image_science, png image: 	4602ms
+mini_magick, png image: 	5439ms
+rmagick, png image: 		6025ms
 ```
+
+This machine has a faster CPU and has an SSD rather than a mechanical hard
+disc, but has a much slower jpeg decoder. 
 
 ## Code
 
