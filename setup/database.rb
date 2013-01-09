@@ -13,7 +13,6 @@ capture_stdout do
 
       t.string :rmagick_avatar
       t.string :mini_magick_avatar
-      t.string :image_science_avatar
       t.string :vips_avatar
     end
   end

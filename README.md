@@ -14,10 +14,7 @@ This benchmark uses the
 gem written by [Jeremy Nicoll](https://github.com/eltiare),
 other participants are modules which are currently used in
 [carrierwave](https://github.com/jnicklas/carrierwave) master
-branch. Actually, ```CarrierWave::ImageScience``` module code had been [cut
-out](https://github.com/jnicklas/carrierwave/commit/8b85d793d62cbce1115185b0dde51ce4e3cac6f4)
-of carrierwave's master a year ago because of lack of maintenance, but it
-is in here among the others.
+branch. 
 
 ## Status (July 3, 2012)
 
@@ -32,7 +29,6 @@ Repo is in setup phase:
 * [ruby-vips](https://github.com/jcupitt/ruby-vips)
 * [rmagick](http://rmagick.rubyforge.org/)
 * [mini_magick](https://github.com/probablycorey/mini_magick)
-* [image_science](https://github.com/seattlerb/image_science)
 
 ## Results
 
@@ -51,19 +47,15 @@ Email: rmagick@rubyforge.org
 
 MiniMagick 3.4
 
-Image Science 1.2.3
-
 Ruby-vips 0.3.4 built against libvips 7.30.3-Thu Sep 13 16:46:22 BST 2012
 
 Timing (fastest wall-clock time of 3 runs):
 
 ruby-vips, jpeg image: 		50ms
 rmagick, jpeg image: 		202ms
-image_science, jpeg image: 	245ms
 mini_magick, jpeg image: 	332ms
 
 ruby-vips, png image: 		2401ms
-image_science, png image: 	6469ms
 rmagick, png image: 		10750ms
 mini_magick, png image: 	11500ms
 
@@ -72,7 +64,6 @@ Peak memuse (max of sum of mmap and brk, excluding sub-processes):
 mini-magick ...		49 MB
 ruby-vips ...  		58 MB  
 rmagick ...  		197 MB  
-image-science ... 	148 MB
 ```
 
 Memory use is measured by watching strace output
@@ -89,14 +80,12 @@ MiniMagick does all processing in a forked
 `mogrify` command, so its direct memory use for image processing is zero.
 Looking at `top`, mogrify is is using about 150mb on this machine. 
 
-If we take MiniMagick as zero, vips is using about 9mb of ram, rmagick about
-150mb and ImageScience about 100mb.
+If we take MiniMagick as zero, vips is using about 9mb of ram and rmagick about
+150mb.
 
 Vips memory use scales with image width (it has to keep a few hundred scan
 lines of the image in memory at once as it streams it through the system),
-RMagick scales with image size (it loads the entire image into memory) and 
-ImageScience scales by size and complexity of processing (it seems to lack
-RMagick's system for destroying intermediate images quickly). 
+RMagick scales with image size (it loads the entire image into memory).
 
 ### Another machine (MacBook Air 13-inch, Mid 2012, Mac OS X Lion 10.7.4)
 
@@ -113,8 +102,6 @@ Email: rmagick@rubyforge.org
 
 MiniMagick 3.4
 
-Image Science 1.2.3
-
 Ruby-vips 0.3.4 built against libvips 7.30.2-Fri Sep 14 05:22:18 YEKT
 2012
 
@@ -122,11 +109,9 @@ Timing (fastest wall-clock time of 3 runs):
 
 ruby-vips, jpeg image: 		85ms
 rmagick, jpeg image: 		181ms
-image_science, jpeg image: 	222ms
 mini_magick, jpeg image: 	392ms
 
 ruby-vips, png image: 		1473ms
-image_science, png image: 	4602ms
 mini_magick, png image: 	5439ms
 rmagick, png image: 		6025ms
 ```
@@ -196,7 +181,6 @@ ActiveRecord::Schema.define do
 
     t.string :rmagick_avatar
     t.string :mini_magick_avatar
-    t.string :image_science_avatar
     t.string :vips_avatar
   end
 end
@@ -240,13 +224,11 @@ end
 ```ruby
 require 'app/uploaders/rmagick_uploader'
 require 'app/uploaders/mini_magick_uploader'
-require 'app/uploaders/image_science_uploader'
 require 'app/uploaders/vips_uploader'
 
 class User < ActiveRecord::Base
   mount_uploader :rmagick_avatar, RMagickUploader
   mount_uploader :mini_magick_avatar, MiniMagickUploader
-  mount_uploader :image_science_avatar, ImageScienceUploader
   mount_uploader :vips_avatar, VipsUploader
 end
 ```
@@ -269,7 +251,6 @@ Runners for each of libraries:
 $ ./runner-vips
 $ ./runner-rmagick
 $ ./runner-mini-magick
-$ ./runner-image-science
 ```
 
 ## Feedback
