@@ -4,6 +4,10 @@
 
 # changes:
 # - show only max mem, and use \r to animate display
+# - better x64 detection ... Tim's version uses 
+# 	if ( `uname -m` eq 'x86_64' ) {
+#   to spot x64, but this will always fail since the uname output will 
+#   include a \n
 
 my $cmd;
 

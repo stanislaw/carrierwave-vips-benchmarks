@@ -35,35 +35,33 @@ Repo is in setup phase:
 ```bash
 $ bundle exec ./runner
 removing previous files uploaded by carrierwave...
-Linux kiwi 3.2.0-30-generic #48-Ubuntu SMP Fri Aug 24 16:52:48 UTC 2012 x86_64
-x86_64 x86_64 GNU/Linux
+Linux mm-jcupitt2 3.5.0-21-generic #32-Ubuntu SMP Tue Dec 11 18:51:59 UTC 2012
+x86_64 x86_64 x86_64 GNU/Linux
 
 This is RMagick 2.13.1 ($Date: 2009/12/20 02:33:33 $) Copyright (C) 2009 by
 Timothy P. Hunter
-Built with ImageMagick 6.6.9-7 2012-08-17 Q16 http://www.imagemagick.org
-Built for ruby 1.8.7
+Built with ImageMagick 6.7.7-10 2012-08-17 Q16 http://www.imagemagick.org
+Built for ruby 1.9.3
 Web page: http://rmagick.rubyforge.org
 Email: rmagick@rubyforge.org
 
 MiniMagick 3.4
 
-Ruby-vips 0.3.4 built against libvips 7.30.3-Thu Sep 13 16:46:22 BST 2012
+Ruby-vips 0.3.5 built against libvips 7.30.7-Tue Jan 15 11:40:02 GMT 2013
 
 Timing (fastest wall-clock time of 3 runs):
+ruby-vips, jpeg image: 		56ms
+rmagick, jpeg image: 		166ms
+mini_magick, jpeg image:	348ms
 
-ruby-vips, jpeg image: 		50ms
-rmagick, jpeg image: 		202ms
-mini_magick, jpeg image: 	332ms
-
-ruby-vips, png image: 		2401ms
-rmagick, png image: 		10750ms
-mini_magick, png image: 	11500ms
+ruby-vips, png image: 		1849ms
+rmagick, png image: 		13105ms
+mini_magick, png image: 	13445ms
 
 Peak memuse (max of sum of mmap and brk, excluding sub-processes):
-
-mini-magick ...		49 MB
-ruby-vips ...  		58 MB  
-rmagick ...  		197 MB  
+vips ...  60 MB  
+mini-magick ...  62 MB  
+rmagick ...  195 MB  
 ```
 
 Memory use is measured by watching strace output
@@ -79,13 +77,6 @@ libraries a little more.
 MiniMagick does all processing in a forked
 `mogrify` command, so its direct memory use for image processing is zero.
 Looking at `top`, mogrify is is using about 150mb on this machine. 
-
-If we take MiniMagick as zero, vips is using about 9mb of ram and rmagick about
-150mb.
-
-Vips memory use scales with image width (it has to keep a few hundred scan
-lines of the image in memory at once as it streams it through the system),
-RMagick scales with image size (it loads the entire image into memory).
 
 ### Another machine (MacBook Air 13-inch, Mid 2012, Mac OS X Lion 10.7.4)
 
