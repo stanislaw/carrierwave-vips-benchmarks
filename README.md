@@ -4,25 +4,11 @@ This repo aims to demonstrate the performance of ruby-vips, the Ruby binding
 for the libvips library, when used with the ```CarrierWave``` file uploader
 plugin for Ruby on Rails framework.
 
-There is similar repository,
-[vips-benchmarks](https://github.com/stanislaw/vips-benchmarks), which
-focuses on the advantages ruby-vips has over other image processing libraries.
-This repo is intended to show, how these advantages spread to Rails territory.
+There is similar repository, [vips-benchmarks](https://github.com/stanislaw/vips-benchmarks), which focuses on the advantages ruby-vips has over other image processing libraries. This repo is intended to show, how these advantages spread to Rails territory.
 
-This benchmark uses the
-[carrierwave-vips](https://github.com/eltiare/carrierwave-vips)
-gem written by [Jeremy Nicoll](https://github.com/eltiare),
-other participants are modules which are currently used in
-[carrierwave](https://github.com/jnicklas/carrierwave) master
-branch. 
+This benchmark uses the [carrierwave-vips](https://github.com/eltiare/carrierwave-vips) gem written by [Jeremy Nicoll](https://github.com/eltiare), other participants are modules which are currently used in [carrierwave](https://github.com/jnicklas/carrierwave) master branch. 
 
-## Status (July 3, 2012)
-
-Repo is in setup phase:
-
-* Test procedure can be significantly changed
-* New participants might be added
-* Whatever
+Last update: May 24, 2013
 
 ## Participants
 
@@ -59,9 +45,9 @@ rmagick, png image: 		13105ms
 mini_magick, png image: 	13445ms
 
 Peak memuse (max of sum of mmap and brk, excluding sub-processes):
-vips ...  60 MB  
+vips ...         60 MB  
 mini-magick ...  62 MB  
-rmagick ...  195 MB  
+rmagick ...     195 MB  
 ```
 
 Memory use is measured by watching strace output
@@ -81,30 +67,29 @@ Looking at `top`, mogrify is is using about 150mb on this machine.
 ### Another machine (MacBook Air 13-inch, Mid 2012, Mac OS X Lion 10.7.4)
 
 ```
-Darwin ip 11.4.2 Darwin Kernel Version 11.4.2: Wed May 30 20:13:51 PDT
-2012; root:xnu-1699.31.2~1/RELEASE_X86_64 x86_64
+Darwin Stanislaws-MacBook-Air.local 11.4.2 Darwin Kernel Version 11.4.2:
+Thu Aug 23 16:25:48 PDT 2012; root:xnu-1699.32.7~1/RELEASE_X86_64 x86_64
 
-This is RMagick 2.13.1 ($Date: 2009/12/20 02:33:33 $) Copyright (C) 2009
+This is RMagick 2.13.2 ($Date: 2009/12/20 02:33:33 $) Copyright (C) 2009
 by Timothy P. Hunter
-Built with ImageMagick 6.7.7-6 2012-08-11 Q16 http://www.imagemagick.org
+Built with ImageMagick 6.8.0-10 2013-03-03 Q16
+http://www.imagemagick.org
 Built for ruby 1.9.3
 Web page: http://rmagick.rubyforge.org
 Email: rmagick@rubyforge.org
 
 MiniMagick 3.4
 
-Ruby-vips 0.3.4 built against libvips 7.30.2-Fri Sep 14 05:22:18 YEKT
-2012
+Ruby-vips 0.3.5 built against libvips 7.32.1-Fri May 24 01:10:57 EEST
+2013
 
 Timing (fastest wall-clock time of 3 runs):
-
-ruby-vips, jpeg image: 		85ms
-rmagick, jpeg image: 		181ms
-mini_magick, jpeg image: 	392ms
-
-ruby-vips, png image: 		1473ms
-mini_magick, png image: 	5439ms
-rmagick, png image: 		6025ms
+ruby-vips, jpeg image: 109ms
+ruby-vips, png image: 1595ms
+rmagick, jpeg image: 179ms
+rmagick, png image: 6290ms
+mini_magick, jpeg image: 540ms
+mini_magick, png image: 6189ms
 ```
 
 This machine has a faster CPU and has an SSD rather than a mechanical hard
