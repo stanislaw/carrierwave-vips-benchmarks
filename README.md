@@ -234,4 +234,5 @@ $ ./runner-mini-magick
 Feedback is appreciated!
 
 ## Copyright
-Copyright (c) 2012 Stanislaw Pankevich
+
+Copyright (c) 2012 Stanislaw Pankevich, John Cupitt
